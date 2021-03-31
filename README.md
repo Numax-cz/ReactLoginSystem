@@ -1,5 +1,7 @@
 # ReactNodeJsLoginSystem
 * Aplikace slouží jako ukázka!
+* Hesla se nešifrují do databáze!
+* Aplikace má základní kontrolu registrace!
 ## Použité balíčky 
 * body-parser@1.19.0
 * cors@2.8.5
@@ -20,11 +22,12 @@
 
 # Potřebné nastavení
 ## Npm install
-* Ve složce `client` a server nainstalujte balíčky pomocí `npm i`
+* Nainstalujte balíčky pomocí `npm i`
+* Balíčky musíte nainstalovat jak ve složce `client` tak `server`
 
 ## Jak nastavit porty?
-* V souboru `client\.env.local` nastavení portu react app
-* V souboru `.env` nastavení portu serveru `SERVER_PORT`
+* V souboru `client\.env.local` nastavení portu `React App`
+* V souboru `.env` nastavení portu `serveru`
 
 ## Jak nastavit post request?
 * V souboru `client\src\ App.js`
@@ -41,10 +44,10 @@ const URLUser = "http://localhost:3001/api/usernamech"; //Post pro kontrolu jmé
 ## Jak nastavit mysql?
 * V souboru `.env` 
 ```mysql
-DATABASE_HOST=localhost
-DATABASE_USER=root
+DATABASE_HOST=
+DATABASE_USER=
 DATABASE_PASS=
-DATABASE_DB=test
+DATABASE_DB=
 ```
 
 

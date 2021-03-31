@@ -7,13 +7,15 @@ export default function User() {
     const [session, Setsession] = useState(
         sessionStorage.getItem("user") || ''
     );
-    if (session == '') {
+
+    if (session === '') {
         history.push("/");
     }
+
     return (
         <div>
-            <h1>Vítej { session}!</h1>
+            <h1>Vítej {session}!</h1>
             <a href="/logout">Odhlásit se</a>
         </div>
-    )
+    );
 }

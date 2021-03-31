@@ -5,40 +5,42 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { useHistory } from 'react-router-dom'
 const URL = "http://localhost:3001/api/register"; //Post pro register
 const URLUser = "http://localhost:3001/api/usernamech"; //Post pro name checker
+export const URLLoginPage = "http://localhost:3001/api/login" //Post pro login
+
 var error;
-
-
-
-
-
-function App() {
+export default function App() {
   const [Username, SetUsername] = useState("");
   const [Password, SetPassowrd] = useState("");
   const history = useHistory();
   const [session, Setsession] = useState(
     sessionStorage.getItem("user") || ''
   );
+
   React.useEffect(() => {
     sessionStorage.setItem("user", session);
   }, [session]);
 
-
   const Submit = (e) => {
-    if (error === false) {
-      Setsession(Username);
-      Axios.post(URL, {
-        Username: Username,
-        Password: Password
-      }).then((res) => {
-        if (res.data === true) {
-          history.push("/user");
-        }
-      });
+    try {
+      if (error === false) {
+        Setsession(Username);
+        Axios.post(URL, {
+          Username: Username,
+          Password: Password
+        }).then((res) => {
+          if (res.data === true) {
+            history.push("/user");
+          }
+        });
+      }
+    } catch (e) {
+      console.error(e);
     }
   }
 
-
-
+  if (session !== '') {
+    history.push("/user");
+  }
 
   const UsernameSet = (e) => {
     SetUsername(e.target.value);
@@ -62,10 +64,11 @@ function App() {
   const PasswordSet = (e) => {
     SetPassowrd(e.target.value);
   }
+
   return (
     <div className="w-50 text-center mt-5 pt-2">
       <div class="form-group">
-        <h1>NapicuReact</h1>
+        <h1>Register</h1>
       </div>
       <div class="form-group">
         <label>Jméno</label>
@@ -77,8 +80,13 @@ function App() {
         <input type="text" class="form-control" onChange={PasswordSet} />
         <button class="btn btn-secondary mt-3" id="button" onClick={Submit}>Registrovat</button>
       </div>
+
+      <div>
+        <a href="/login">již máte účet ?</a>
+
+      </div>
+
     </div>
   );
 }
 
-export default App;

@@ -29,19 +29,30 @@ app.post("/api/register", (req, res) => {
 
 app.post("/api/usernamech", (req, res) => {
     const username = req.body.Username;
-    db.query(`SELECT * FROM login WHERE username='${username}'`, function (err, result, fl) {
+    db.query(`SELECT * FROM login WHERE username='${username}'`, (err, result) => {
         if (username.length <= 0) {
             res.json({ message: "", error: null });
         } else {
             if (result.length) {
-                res.json({ message: "Jméno existuje", error: true});
+                res.json({ message: "Jméno existuje", error: true });
             } else {
-                res.json({ message: "Jméno neexistuje", error: false});
-            } 
-        }    
+                res.json({ message: "Jméno neexistuje", error: false });
+            }
+        }
     });
 });
+app.post("/api/login", (req, res) => {
+    const Username = req.body.Username;
+    const Password = req.body.Password;
+    db.query(`SELECT * FROM login WHERE username='${Username}' AND password='${Password}'`, (err, result) => {
+        if (result.length) {
+            res.json(true);
 
+        } else {
+            res.json(false);
+        }
+    });
+})
 db.connect(function (e) {
     if (e) throw e;
     console.log("Databáze byla napojena");
